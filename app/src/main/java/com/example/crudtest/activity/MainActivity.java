@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,14 +25,15 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listView;
-    List<Employee> employees;
+    private ListView listView;
+    private List<Employee> employees;
+    private ProgressBar pgsBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        pgsBar = (ProgressBar) findViewById(R.id.pBar);
         listView = (ListView) findViewById(R.id.listView);
 
         TextView titleText = new TextView(this);
@@ -54,13 +56,21 @@ public class MainActivity extends AppCompatActivity {
         getAllEmployees();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getAllEmployees();
+    }
+
     private void getAllEmployees() {
+        pgsBar.setVisibility(View.VISIBLE);
         NetworkService.getInstance()
                 .getJSONApi()
                 .getAllEmployees()
                 .enqueue(new Callback<List<Employee>>() {
                     @Override
                     public void onResponse(@NonNull Call<List<Employee>> call, @NonNull Response<List<Employee>> response) {
+                        pgsBar.setVisibility(View.GONE);
                         employees = response.body();
                         EmployeesAdapter arrayAdapter = new EmployeesAdapter(getApplicationContext(), employees);
                         listView.setAdapter(arrayAdapter);
@@ -68,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@NonNull Call<List<Employee>> call, @NonNull Throwable t) {
+                        pgsBar.setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(), "Error occurred while getting request!", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
