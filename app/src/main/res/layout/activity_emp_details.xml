@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.EmpDetails"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/employee_details"
+        android:textSize="@dimen/standard_size_30_sp"
+        android:layout_marginBottom="@dimen/margin_but_20_sp"
+        android:textColor="@color/blue"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/empIdText"
+            android:text="@string/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textView"/>
+
+        <TextView
+            android:id="@+id/empId"
+            android:text=""
+            android:layout_width="0.0dip" android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            style="@style/textView"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/empFirstName"
+        android:text="@string/first_name"
+        style="@style/textView"/>
+
+    <TextView
+        android:id="@+id/empLastName"
+        android:text="@string/last_name"
+        style="@style/textView"/>
+
+    <TextView
+        android:id="@+id/empEmail"
+        android:text="@string/email"
+        style="@style/textView"
+        android:layout_marginBottom="@dimen/margin_bot_10_sp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="4.0dip"
+        android:paddingTop="5.0dip"
+        android:paddingRight="4.0dip"
+        android:paddingBottom="1.0dip"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/allow"
+            android:text="@string/update"
+            android:layout_width="0.0dip" android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="@color/colorAccent"
+            android:onClick="updateEmployee"/>
+
+        <Button
+            android:id="@+id/deny"
+            android:text="@string/delete"
+            android:layout_width="0.0dip" android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="@color/red"
+            android:onClick="deleteEmployee"
+            android:tag=""/>
+
+    </LinearLayout>
+</LinearLayout>

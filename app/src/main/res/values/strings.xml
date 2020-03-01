@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CrudTest</string>
+    <string name="getEmpl">https://androidcrudtest.herokuapp.com/api/v1/employees</string>
+    <string name="employees_list">Employees List</string>
+    <string name="add_employee">Add Employee</string>
+    <string name="enter_first_name">Enter First Name</string>
+    <string name="enter_last_name">Enter Last Name</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="add_new_employee">Add New Employee</string>
+    <string name="employee_details">Employee Details</string>
+    <string name="id">ID:   </string>
+    <string name="first_name">First Name:</string>
+    <string name="last_name">Last Name:</string>
+    <string name="email">Email:</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="pos">Pos</string>
+    <string name="dot">.</string>
+    <string name="update_employee">Update Employee</string>
+</resources>

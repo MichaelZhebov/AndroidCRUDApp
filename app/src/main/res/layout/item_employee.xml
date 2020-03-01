@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/position"
+        android:text="@string/pos"
+        style="@style/item_list"/>
+
+    <TextView
+        android:id="@+id/dot"
+        android:text="@string/dot"
+        style="@style/item_list"
+        android:layout_marginRight="@dimen/margin_right_5_sp"/>
+    <TextView
+        android:id="@+id/empFirstName"
+        android:text="@string/first_name"
+        style="@style/item_list"/>
+
+</LinearLayout>
