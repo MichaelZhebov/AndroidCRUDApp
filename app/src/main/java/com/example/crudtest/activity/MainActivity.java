@@ -3,19 +3,20 @@ package com.example.crudtest.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.crudtest.R;
+import com.example.crudtest.adapter.EmployeeRecyclerAdapter;
 import com.example.crudtest.model.Employee;
-import com.example.crudtest.util.EmployeesAdapter;
-import com.example.crudtest.util.NetworkService;
+import com.example.crudtest.service.NetworkService;
 
 import java.util.List;
 
@@ -25,35 +26,34 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listView;
     private List<Employee> employees;
     private ProgressBar pgsBar;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pgsBar = (ProgressBar) findViewById(R.id.pBar);
-        listView = (ListView) findViewById(R.id.listView);
+        getAllEmployees();
 
-        TextView titleText = new TextView(this);
-        titleText.setText(R.string.employees_list);
-        listView.addHeaderView(titleText);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int index = position - 1;
-                Intent intent = new Intent(getApplicationContext(),EmpDetails.class);
-                intent.putExtra("id",employees.get(index).getId());
-                intent.putExtra("firstName",employees.get(index).getFirstName());
-                intent.putExtra("lastName",employees.get(index).getLastName());
-                intent.putExtra("email",employees.get(index).getEmail());
-                startActivity(intent);
+            public void onRefresh() {
+                // Refresh items
+                getAllEmployees();
             }
         });
-
-        getAllEmployees();
     }
 
     @Override
@@ -72,14 +72,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(@NonNull Call<List<Employee>> call, @NonNull Response<List<Employee>> response) {
                         pgsBar.setVisibility(View.GONE);
                         employees = response.body();
-                        EmployeesAdapter arrayAdapter = new EmployeesAdapter(getApplicationContext(), employees);
-                        listView.setAdapter(arrayAdapter);
+                        setViews();
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<List<Employee>> call, @NonNull Throwable t) {
                         pgsBar.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(), "Error occurred while getting request!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
                 });
@@ -88,5 +87,17 @@ public class MainActivity extends AppCompatActivity {
     public void redirect(View view) {
         Intent intent = new Intent(getApplicationContext(),AddEmpl.class);
         startActivity(intent);
+    }
+
+    private void setViews() {
+        recyclerView=(RecyclerView) findViewById(R.id.listView);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new EmployeeRecyclerAdapter(this, employees);
+
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }

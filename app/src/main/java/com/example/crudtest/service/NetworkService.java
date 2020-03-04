@@ -1,7 +1,10 @@
-package com.example.crudtest.util;
+package com.example.crudtest.service;
 
 import com.example.crudtest.rest.JSONPlaceHolderApi;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -12,7 +15,13 @@ public class NetworkService {
     private Retrofit mRetrofit;
 
     private NetworkService() {
+        final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build();
         mRetrofit = new Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

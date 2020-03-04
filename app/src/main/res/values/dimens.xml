@@ -4,4 +4,5 @@
     <dimen name="margin_but_20_sp">20sp</dimen>
     <dimen name="margin_right_5_sp">5sp</dimen>
     <dimen name="margin_bot_10_sp">10sp</dimen>
+    <dimen name="standart_size_20_sp">20sp</dimen>
 </resources>

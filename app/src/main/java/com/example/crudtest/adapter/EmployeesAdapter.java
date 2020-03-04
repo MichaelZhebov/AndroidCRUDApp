@@ -1,4 +1,4 @@
-package com.example.crudtest.util;
+package com.example.crudtest.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.SplashActivity">
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome to CRUD app"
+        android:textSize="@dimen/standard_size_30_sp"
+        android:textColor="@color/colorAccent"
+        android:textAlignment="center"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lottie_fileName="start.json"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        android:layout_below="@id/welcome"
+        android:layout_above="@id/about"/>
+
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="created by MZh"
+        android:textSize="@dimen/standart_size_20_sp"
+        android:textColor="@color/colorPrimary"
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

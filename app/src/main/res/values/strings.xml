@@ -17,4 +17,13 @@
     <string name="pos">Pos</string>
     <string name="dot">.</string>
     <string name="update_employee">Update Employee</string>
+    <string name="base_url">https://androidcrudtest.herokuapp.com</string>
+    <string name="error">Error occurred while getting request!</string>
+    <string name="delete_employee">Delete Employee</string>
+    <string name="question_delete">Do you really want to delete Employee?</string>
+    <string name="delete_success">Employee deleted success!</string>
+    <string name="add_success">Employee add success!</string>
+    <string name="valid_email">Please Enter a valid email!</string>
+    <string name="updated_success">Employee update success!</string>
+    <string name="some_name">Some Name</string>
 </resources>

@@ -12,7 +12,7 @@
         android:id="@+id/dot"
         android:text="@string/dot"
         style="@style/item_list"
-        android:layout_marginRight="@dimen/margin_right_5_sp"/>
+        android:layout_marginEnd="@dimen/margin_right_5_sp"/>
     <TextView
         android:id="@+id/empFirstName"
         android:text="@string/first_name"

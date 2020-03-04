@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.crudtest.R;
 import com.example.crudtest.model.Employee;
-import com.example.crudtest.util.NetworkService;
+import com.example.crudtest.service.NetworkService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +24,7 @@ public class EmpDetails extends AppCompatActivity {
     private String firstName;
     private String lastName;
     private String email;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,25 +52,23 @@ public class EmpDetails extends AppCompatActivity {
 
     public void deleteEmployee(final View view) {
         new AlertDialog.Builder(this)
-                .setTitle("Delete Employee")
-                .setMessage("Do you really want to delete Employee?")
+                .setTitle(R.string.delete_employee)
+                .setMessage(R.string.question_delete)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        // deleting code....
                         NetworkService.getInstance()
                                 .getJSONApi()
                                 .deleteEmployee(id)
                                 .enqueue(new Callback<Employee>() {
                                     @Override
                                     public void onResponse(@NonNull Call<Employee> call, @NonNull Response<Employee> response) {
-                                        Toast.makeText(getApplicationContext(), "Employee deleted success!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), getString(R.string.delete_success), Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
                                     public void onFailure(@NonNull Call<Employee> call, @NonNull Throwable t) {
-                                        Toast.makeText(getApplicationContext(), "Error occurred while getting request!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), getString(R.string.error), Toast.LENGTH_SHORT).show();
                                         t.printStackTrace();
                                     }
                                 });
@@ -81,7 +80,6 @@ public class EmpDetails extends AppCompatActivity {
     }
 
     public void updateEmployee(View view) {
-        //updating code.....
         Intent intent = new Intent(getApplicationContext(),UpdEmpl.class);
         intent.putExtra("id",id);
         intent.putExtra("firstName",firstName);
